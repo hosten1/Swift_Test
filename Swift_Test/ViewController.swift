@@ -54,21 +54,56 @@ class testClass {
 }
 class ViewController: UIViewController{
     var testFunC :testFun?
+    fileprivate var indexView :MJNIndexViewSwift?
+    fileprivate var tableView :UITableView?
+    fileprivate lazy var  memberLists:[String] = {
+        let memberList = ["A","B","C","D","E","*"]
+        return memberList
+    }()
+    
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.testOptionals()
         // Do any additional setup after loading the view, typically from a nib.
-       let FunC = testFun()
-        FunC.testDelgate = self
-        FunC.doSomeon()
+//       let FunC = testFun()
+//       FunC.testDelgate = self
+//       FunC.doSomeon()
+        
+//        let a:Int8 = 120
+//        print("int8:\(a)")
+//        let i = Int(a)
+//        print("转成int：\(i)")
+//        let testInt = 10003
+//        let testInt8 = Int8(testInt&127)
+//        let testint64 = Int64(testInt8|127)
+//        print("高位向地位转换:\(testInt8) 或运算 \(testint64)")
        //添加一tableveiw
         let tableView = UITableView()
+        self.tableView = tableView
         tableView.frame = self.view.bounds
         self.view .addSubview(tableView)
+        
         tableView.delegate = self
         tableView.dataSource = self
+        self.loadIndexView()
     }
-    
+    func loadIndexView() {
+        let screenWid = UIScreen.main.bounds.size.width
+        let screenHei = UIScreen.main.bounds.size.height
+        if indexView == nil {
+            indexView = MJNIndexViewSwift.init(frame: CGRect.init(x: 0, y: 0, width: screenWid, height: screenHei-64))
+            indexView?.dataSource = self
+            indexView?.font = UIFont.systemFont(ofSize: 13)
+            indexView?.fontColor =  UIColor.init(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
+            //            InitSetFontColor(fontColor: UIColor.init(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0))
+            self.view.addSubview(indexView!)
+        }
+    }
+
     func restAll() -> () {
         let stu = Person()
         stu.name = "hhh"
@@ -118,7 +153,41 @@ class ViewController: UIViewController{
             print("开始请求数据了")
         })
     }
-    
+    //c测试可选类型
+    func testOptionals() -> () {
+        let testOp1 :Optional<Int> = 1008611
+        print("定义方式一：未解包前类型和值是：\(String(describing: testOp1))")
+//        let testInt8 :Int8 = Int8(testOp1!)错误
+//         print("int转成int8是：\(testInt8)")
+        let testOpt2 = Optional<String>("第二种定义方式")
+        print("定义方式二：未解包前类型和值是：\(String(describing: testOpt2))")
+        var testOpS : String?
+        testOpS =  "4334675444635"
+        print("定义方式三：未解包前类型和值是：\(String(describing: testOpS))")
+        print("强制解包类型和值是：\(testOpS!)")
+        if let deOptionS = testOpS {
+            print("绑定解包类型和值是：\(deOptionS)")
+            let reserint64 = Int64.init(deOptionS)
+            print("转换成int64是：\(reserint64 ?? 12)")
+            if let tempint64 = reserint64 {
+                let reserNSNum = NSNumber.init(value: tempint64)
+                print("转换成NSNumber是：\(reserNSNum)")
+            }
+            
+            
+        }
+        let refClosure: ((_ cunS : String?)-> String?)? = {(_ cus:String?)-> String? in
+            print("\(cus!)-->这是一个闭包引用")
+            return "测试用例"
+        }
+        let testClosWithOpt = refClosure!("测试参数")
+        print("测试闭包与可选类型======\(testClosWithOpt ?? "error")")
+        
+        let ss: NSString = "9876543210"
+        let ll: Int64 = ss.longLongValue
+        print("转成 int64是："+"\(ll)")
+        
+    }
     func testFuncVale(redView:UIView){
        
         let tesy = "luo yongmeng"
@@ -175,12 +244,14 @@ class ViewController: UIViewController{
         
     }
 }
-extension ViewController:UITableViewDataSource,UITableViewDelegate,testProtoDelate{
+extension ViewController:UITableViewDataSource,UITableViewDelegate,testProtoDelate,MJNIndexViewSwiftDataSource{
     // MARK:- tableView数据源方法
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return 2
     }
-    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return memberLists.count
+    }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let ID = "Cell"
@@ -190,6 +261,7 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate,testProtoDela
         
         // 判断是否为nil,如果为nil,则创建
         if cell == nil {
+            
             cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: ID)
         }
         
@@ -207,4 +279,35 @@ extension ViewController:UITableViewDataSource,UITableViewDelegate,testProtoDela
         print("协议 告诉我 \(someS!)")
         return "电话已经打完了！"
     }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+            let title = UILabel.init(frame: CGRect.init(x: 20, y: 0, width: self.view.frame.size.width, height: 20))
+            title.backgroundColor = UIColor.clear
+            title.textAlignment = .left
+            title.textColor = UIColor.gray
+            title.font = UIFont.systemFont(ofSize: 14)
+            let sectionTitle = memberLists[section]
+            title.text = sectionTitle == "@" ? "管理员" : sectionTitle
+            return title
+            
+    }
+
+    
+    func swiftSectionFor(SectionMJNIndexTitle title: String, atIndex index: Int) {
+        tableView?.scrollToRow(at: NSIndexPath.init(item: 0, section: index) as IndexPath, at:.top , animated: (self.indexView?.getSelectedItemsAfterPanGestureIsFinished)!)
+    }
+    func swiftSectionIndexTitles(ForMJNIndexView indexView: MJNIndexViewSwift) -> ([String]) {
+        
+        if memberLists.count > 0 {
+            return memberLists
+        }
+        return [String]()
+    }
+
 }

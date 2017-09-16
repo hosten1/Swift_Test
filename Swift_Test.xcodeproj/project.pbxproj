@@ -15,6 +15,7 @@
 		6DB0F2E51F5F802600A91BD4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6DB0F2E41F5F802600A91BD4 /* Assets.xcassets */; };
 		6DB0F2E81F5F802700A91BD4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6DB0F2E61F5F802700A91BD4 /* LaunchScreen.storyboard */; };
 		6DB0F2F31F5F803D00A91BD4 /* Swift_TestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DB0F2F21F5F803C00A91BD4 /* Swift_TestTests.swift */; };
+		6DBBE9711F6B60FF00347388 /* MJNIndexViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DBBE9701F6B60FF00347388 /* MJNIndexViewSwift.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		6DB0F2EE1F5F803B00A91BD4 /* Swift_TestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Swift_TestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DB0F2F21F5F803C00A91BD4 /* Swift_TestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swift_TestTests.swift; sourceTree = "<group>"; };
 		6DB0F2F41F5F803E00A91BD4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6DBBE9701F6B60FF00347388 /* MJNIndexViewSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MJNIndexViewSwift.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 		6DB0F2DC1F5F802300A91BD4 /* Swift_Test */ = {
 			isa = PBXGroup;
 			children = (
+				6DBBE96F1F6B60FF00347388 /* MJNIndexView */,
 				6DB0F2DD1F5F802400A91BD4 /* AppDelegate.swift */,
 				6DB0F2DF1F5F802400A91BD4 /* ViewController.swift */,
 				6DB0F2E11F5F802500A91BD4 /* Main.storyboard */,
@@ -100,6 +103,14 @@
 				6DB0F2F41F5F803E00A91BD4 /* Info.plist */,
 			);
 			path = Swift_TestTests;
+			sourceTree = "<group>";
+		};
+		6DBBE96F1F6B60FF00347388 /* MJNIndexView */ = {
+			isa = PBXGroup;
+			children = (
+				6DBBE9701F6B60FF00347388 /* MJNIndexViewSwift.swift */,
+			);
+			path = MJNIndexView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +218,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DBBE9711F6B60FF00347388 /* MJNIndexViewSwift.swift in Sources */,
 				6DB0F2E01F5F802400A91BD4 /* ViewController.swift in Sources */,
 				6D9876451F60E96E0060DE71 /* testFun.swift in Sources */,
 				6D4DED001F5FC420005C664C /* test.swift in Sources */,
